@@ -1,21 +1,27 @@
-import java.io.*;  
-import java.util.Scanner;  
-public class ReadCSVExample1  
-{  
-public static void main(String[] args) throws Exception  
-{  
-//parsing a CSV file into Scanner class constructor  
-Scanner sc = new Scanner(new File("E:\\CSV.csv"));  
-sc.useDelimiter(",");     
-while (sc.hasNext())  
-{  
-System.out.print(sc.next());    
-}   
-sc.close();  
-}  
-}  
-
-Created by SQL 
+SQLServerConnection Conn;
+Conn = new SQLServerConnection("host=nc-star;port=1533;
+User ID=mukeshvarma123;Password=test01126; Database Name=Highestpopulation");
+try
+{
+Conn.Open();
+}
+catch (SQLServerException ex)
+{
+Console.WriteLine(ex.Message);
+return;
+}
+string[] DropTableSQL = {"drop table emp", "drop table dept"};
+for (int x=0; x<=1; x++)
+{
+try
+{
+// Drop the highestpopulation, 
+SQLServerCommand DBCmd = new SQLServerCommand(highestSQL[x], Conn);
+DBCmd.ExecuteNonQuery();
+}
+catch (SQLServerException ex)
+{
+}
 
 create population data [mvp].SPPData
 @year varchar(10) as
