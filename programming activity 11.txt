@@ -17,32 +17,32 @@ sc.close();
 
 Created by SQL 
 
-create procedure [dbo].SPPData
+create population data [mvp].SPPData
 @year varchar(10) as
 begin
 
 	declare @sql varchar(8000)
-	set @sql='Select top 1 "Country Name", '+ @year +' AS HighestPopulation from [dbo].[PopulationData] order by ' +@year + ' desc'
+	set @sql='Select top 1 "Country Name", '+ @year +' AS HighestPopulation from [mvp].[PopulationData] order by ' +@year + ' desc'
 	
 	exec(@sql);
 
 end;
 
---exec [dbo].SPPData @Year = C1960
+--exec [mvp].SPPData @Year = C1960
 
-alter procedure [dbo].SP_Q3
+alter procedure [mvp].SP_Q3
 @StartYear varchar(10) , 
 @EndYear varchar(10) ,
 @Order varchar(10) as
 begin
 	declare @sql varchar(8000);
 
-	 --select top  1 "Country Name" , (CAST([PopulationData].[C2020] AS float) - CAST([PopulationData].[C1960] AS float)) / CAST([PopulationData].[C1960] AS float)  * 100 as diff FROM [dbo].[PopulationData]  order by diff desc;
+	 --select top  1 "Country Name" , (CAST([PopulationData].[C2020] AS float) - CAST([PopulationData].[C1960] AS float)) / CAST([PopulationData].[C1960] AS float)  * 100 as diff FROM [mvo].[PopulationData]  order by diff desc;
 
-	set @sql='select top 1 "Country Name" , (CAST([PopulationData].['+@EndYear+'] AS float) - CAST([PopulationData].['+@StartYear+'] AS float)) / CAST([PopulationData].['+@StartYear+'] AS float)  * 100 as diff FROM [dbo].[PopulationData]  order by diff ' + @Order;
+	set @sql='select top 1 "Country Name" , (CAST([PopulationData].['+@EndYear+'] AS float) - CAST([PopulationData].['+@StartYear+'] AS float)) / CAST([PopulationData].['+@StartYear+'] AS float)  * 100 as diff FROM [mvp].[PopulationData]  order by diff ' + @Order;
 	
 	exec(@sql);
 
 end
 
--- exec [dbo].SP_Q3 @StartYear = "C1960", @EndYear = "C2020", @Order ="asc"
+-- exec [mvp].SP_Q3 @StartYear = "C1960", @EndYear = "C2020", @Order ="asc"
