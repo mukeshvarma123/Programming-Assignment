@@ -1,0 +1,48 @@
+import java.io.*;  
+import java.util.Scanner;  
+public class ReadCSVExample1  
+{  
+public static void main(String[] args) throws Exception  
+{  
+//parsing a CSV file into Scanner class constructor  
+Scanner sc = new Scanner(new File("E:\\CSV.csv"));  
+sc.useDelimiter(",");     
+while (sc.hasNext())  
+{  
+System.out.print(sc.next());    
+}   
+sc.close();  
+}  
+}  
+
+Created by SQL 
+
+create procedure [dbo].SPPData
+@year varchar(10) as
+begin
+
+	declare @sql varchar(8000)
+	set @sql='Select top 1 "Country Name", '+ @year +' AS HighestPopulation from [dbo].[PopulationData] order by ' +@year + ' desc'
+	
+	exec(@sql);
+
+end;
+
+--exec [dbo].SPPData @Year = C1960
+
+alter procedure [dbo].SP_Q3
+@StartYear varchar(10) , 
+@EndYear varchar(10) ,
+@Order varchar(10) as
+begin
+	declare @sql varchar(8000);
+
+	 --select top  1 "Country Name" , (CAST([PopulationData].[C2020] AS float) - CAST([PopulationData].[C1960] AS float)) / CAST([PopulationData].[C1960] AS float)  * 100 as diff FROM [dbo].[PopulationData]  order by diff desc;
+
+	set @sql='select top 1 "Country Name" , (CAST([PopulationData].['+@EndYear+'] AS float) - CAST([PopulationData].['+@StartYear+'] AS float)) / CAST([PopulationData].['+@StartYear+'] AS float)  * 100 as diff FROM [dbo].[PopulationData]  order by diff ' + @Order;
+	
+	exec(@sql);
+
+end
+
+-- exec [dbo].SP_Q3 @StartYear = "C1960", @EndYear = "C2020", @Order ="asc"
